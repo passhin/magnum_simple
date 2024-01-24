@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.FranDao">
+	<insert id="insert" parameterType="FranDto">
+		insert into franchise (fname,cnum,starttime,endtime,cost,mno,address,content,phone) values
+		 (#{fname},#{cnum},#{starttime},#{endtime},#{cost},#{mno},#{address},#{content},#{phone})
+	</insert>
+	
+	<update id="update" parameterType="FranDto">
+		update franchise set fname= #{fname}, cnum= #{cnum}, starttime= #{starttime}, endtime= #{endtime},
+		 cost= #{cost}, mno= #{mno}, address= #{address}, content= #{content}, phone= #{phone}
+				where fno = #{fno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from franchise where fno = #{fno}
+	</delete>
+	
+	<select id="read4" resultType="FranDto">
+		select * from franchise order by hit desc limit 4
+	</select>
+	
+	<select id="read" parameterType="int" resultType="FranDto">
+		select * from franchise where fno = #{fno}
+	</select>
+	
+	<select id="read10" resultType="FranDto">
+		select * from franchise order by fno desc limit 10
+	</select>
+	
+	<select id="readAll" resultType="FranDto">
+		select * from franchise order by fno desc
+	</select>
+	
+	<select  id="listtotal1" resultType="int">
+		select  count(*) from franchise	
+	</select>
+	
+	<select  id="listCnt1" resultType="FranDto" 
+			parameterType="java.util.HashMap">
+		select * from franchise
+		order by fno desc limit #{pstartno} , #{onepagelimit}	
+	</select>
+	
+	<select  id="listtotal2" resultType="int">
+		select count(*) from franchise	where mno = #{mno}
+	</select>
+	
+	<select  id="listCnt2" resultType="FranDto" 
+			parameterType="java.util.HashMap">
+		select * from franchise where mno = #{mno}
+		order by fno desc limit #{pstartno} , #{onepagelimit}	
+	</select>
+</mapper>

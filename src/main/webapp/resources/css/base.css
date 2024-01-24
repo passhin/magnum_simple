@@ -1,0 +1,6 @@
+@charset "UTF-8";
+  /*  base.css  */    
+body{  font-family:"Malgun Gothic" , dotum , sans-serif; /*font-size:90%;*/
+    background-color : white; color:#000;}
+a:link, a:visited{  color:#000;   text-decoration:none; }
+a:hover, a:focus{  color:#f00;   text-decoration:underline; }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.ImagesDao">
+	<insert id="insert1" parameterType="com.company.dto.ImagesDto">
+		insert into images (iname,fno)
+				values (#{iname}, #{fno})
+	</insert>
+	<insert id="insert2" parameterType="com.company.dto.ImagesDto">
+	 	insert into images (fno)
+				values (#{fno})
+	</insert>
+	<update id="update1" parameterType="ImagesDto">
+		update images set iname=#{iname1}, fno=#{fno1} where ino=#{ino1}
+	</update>
+	<update id="update2" parameterType="ImagesDto">
+		update images set iname=#{iname2}, fno=#{fno2} where ino=#{ino2}
+	</update>
+	<update id="update3" parameterType="ImagesDto">
+		update images set iname=#{iname3}, fno=#{fno3} where ino=#{ino3}
+	</update>
+	<update id="update4" parameterType="ImagesDto">
+		update images set iname=#{iname4}, fno=#{fno4} where ino=#{ino4}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from images where fno=#{fno}
+	</delete>
+	<select id="readimg" resultType="ImagesDto">
+		select * from images where fno=#{fno}
+	</select>
+	<select id="readAll" resultType="ImagesDto">
+		select * from images order by fno and ino desc
+	</select>
+</mapper>
