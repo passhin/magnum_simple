@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.DateDao">
+	<insert id="insertcourse" parameterType="DateCourseDto">
+		insert into datecourse(dno,cnum,mno,fno) values(#{dno},#{cnum},#{mno},#{fno})
+	</insert>
+	<insert id="insertlist" parameterType="DateDto">
+		insert into datelist(uno,dtitle) values(#{uno},#{dtitle})
+	</insert>
+	<update id="updatecourse" parameterType="DateCourseDto">
+		update datecourse set course=course+1;
+	</update>
+	<update id="updateDno" parameterType="DateCourseDto">
+		update datelist set dno=dno+1;
+	</update>
+	<select id="readFran" parameterType="int" resultType="FranchiseDto">
+		select * from franchise natural join subway where fno=#{fno};
+	</select>
+	<select id="maxDno" resultType="DateDto">
+		select dno from datelist order by dno desc limit 1;
+	</select>
+	<select id="delete" parameterType="DateDto" resultType="java.util.HashMap">
+		delete from ${table} where dno=${keyword}
+	</select>
+	<delete id="deletecourse" parameterType="DateCourseDto">
+		delete from datecourse where cno=#{cno} and dno=#{dno}
+	</delete>
+	<select id="readAll" parameterType="DateDto" resultType="java.util.HashMap">
+		select * from ${table}
+	</select>
+	<select id="readfranchise" parameterType="FranchiseDto"
+	resultType="FranchiseDto">
+	select * from franchise f left join category c on f.cnum = c.cnum left join
+	subway s on f.mno = s.mno where f.cnum=#{cnum} and f.mno=#{mno};
+</select>
+	<select id="readlist" parameterType="DateDto" resultType="DateDto">
+		select * from datelist where mno=#{mno}
+	</select>
+</mapper>
