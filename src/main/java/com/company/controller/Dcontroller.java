@@ -1,7 +1,13 @@
 package com.company.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,11 +42,14 @@ public class Dcontroller {
 
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> insert(Model model,int fno, DateCourseDto dto) {
+	public Map<String,Object> insert(Model model,int fno,int dno, DateCourseDto dto) {
 		Map<String,Object> result=new HashMap<>();
-		service.insertcourse(dto);
-		result.put("result", service.readFran(fno));
-		System.out.println(result);
+		if(service.insertcourse(dto)>0) {
+			dto.setFno(fno);
+			dto.setDno(dno);
+			result.put("result", service.readCourse(dto));
+		}
+		System.out.println(service.readCourse(dto));
 		return result;
 	}
 
@@ -55,22 +64,33 @@ public class Dcontroller {
 	}
 
 	@RequestMapping(value = "/coursedelete", method = RequestMethod.GET)
-	public Map<String,Object> Coursedelete(Map<String, String> para) {
-		Map<String,Object> result= new HashMap<>();
-		
-		result.put("result", service.deletecourse(null));
+	@ResponseBody
+	public Map<String,Object> Coursedelete(DateCourseDto dto,int dno, int cno) {
+		Map<String,Object> result= new HashMap<>();		
+		result.put("result", service.deletecourse(dto));
+		return result;
+	}	
+	
+	@RequestMapping(value = "/course", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> course(int fno,int dno, DateCourseDto dto) {
+		Map<String,Object> result=new HashMap<>();
+		result.put("result", service.course(dto));
+		System.out.println(result);
 		return result;
 	}
-
+	@RequestMapping(value = "/deleteview", method = RequestMethod.GET)
+	public String Coursedelete(DateDto dto) {
+		service.deletelist(dto);		
+		return "/simple/list";
+		//홈으로 변경예정
+	}
+	
 	@RequestMapping(value = "/coursecomplete", method = RequestMethod.GET)
-	public String Coursecomplete(Map<String, String> para) {
-
+	public String Coursecomplete(Model model, int dno) {
+		model.addAttribute("dto",dno);
+		System.out.println(dno);
 		return "/simple/list";
 	}
 
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String Review(Map<String, String> para) {
-
-		return "/simple/detail";
-	}
 }

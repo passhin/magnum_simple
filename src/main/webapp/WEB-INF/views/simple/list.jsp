@@ -16,28 +16,55 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	function readcourse(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/courselist",
+			type : "get",
+			dataType : "json",
+			data :{
+				cnum : $("#mno").val()
+			},
+			success : listResult,
+			error : function(xhr, status, msg) {
+				alert(".." + status + "/" + msg);
+			}
+		});
+	}
+</script>
 <title></title>
 </head>
 <body>
 	<div class="container panel panel-info">
 		<h3 class="panel-heading">DateList</h3>
-		<form action="listout" method="get">
-			<fieldset>
-				<legend>역 검색</legend>
-				<div class="form-group">
-					<select id="cnum" name="cnum" class="form-control">
-						<option value="0">지하철역 선택해주세요</option>
-						<option value="1">강남</option>
-						<option value="2">역삼</option>
-						<option value="3">홍대</option>
-						<option value="4">합정</option>
-						<option value="5">한양대</option>
-					</select>
-					<%--추후 c:forEach로 리스트 뽑을 예정 --%>
-				</div>
-			</fieldset>
-		</form>
+		<div class="form-group">
+			<select id="mno" name="mno" class="form-control">
+				<option value="0">지하철역 선택해주세요</option>
+				<option value="38">신촌</option>
+				<option value="17">강변</option>
+				<option value="44">신도림</option>
+				<option value="9">강남</option>
+				<option value="10">역삼</option>
+			</select>
+			<%--추후 c:forEach로 리스트 뽑을 예정 --%>
+		</div>
+		<div class="form-group">
+			<input type="button" id="list" value="역선택 완료" class="btn btn-danger">
+		</div>
 	</div>
+	<script>
+		$(function(){
+			$("#list").on("click",function(){
+				if($("#mno").val() ==0){
+					alert("카테고리 선택해주세요.");
+					$("#mno").focus();
+					return false;
+				} else{
+					readcourse();
+				}
+			});
+		});
+	</script>
 	<div class="container panel panel-info">
 		<h3 class="panel-heading">리스트 출력부분</h3>
 		<table class="table table-striped r1">

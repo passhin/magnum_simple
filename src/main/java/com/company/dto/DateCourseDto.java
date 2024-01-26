@@ -16,4 +16,9 @@ public class DateCourseDto {
 	private int cnum;
 	private int fno;
 	private int mno;
+	private String mname;
+	private String fname;
+	private String content;
+	private String address;
+	private int cost;
 }

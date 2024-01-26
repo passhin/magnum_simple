@@ -17,28 +17,23 @@ public class DServiceImpl implements DService{
 	DateDao dao;
 	
 	@Override
+	public DateDto maxDno() {
+		return dao.maxDno();
+	}
+
+	@Override
 	public int insertcourse(DateCourseDto dto) {
+		dao.updatecourse(dto);
 		return dao.insertcourse(dto);
 	}
 
 	@Override
-	public List<FranchiseDto> readFran(int fno) {
-		return dao.readFran(fno);
-	}
-
-	@Override
 	public int insertlist(DateDto dto) {
-		/*
-	 		1. max(dno)  찾기		
-			2. insert 확인
-			3. 1번에서 찾은값 
-		 */
 		int result=0;
 		if(dao.insertlist(dto)>0) {
 			return dao.maxDno().getDno();
 		}
-		return result;
-		
+		return result;		
 	}
 
 	@Override
@@ -57,8 +52,13 @@ public class DServiceImpl implements DService{
 	}
 
 	@Override
-	public List<DateDto> delete(Map<String, String> para) {
-		return dao.delete(para);
+	public int updatecourse(DateCourseDto dto) {
+		return dao.updatecourse(dto);
+	}
+
+	@Override
+	public List<DateCourseDto> course(DateCourseDto dto) {
+		return dao.course(dto);
 	}
 
 	@Override
@@ -67,8 +67,13 @@ public class DServiceImpl implements DService{
 	}
 
 	@Override
-	public DateDto MaxDno() {		
-		return dao.maxDno();
+	public List<DateCourseDto> readCourse(DateCourseDto dto) {
+		return dao.readCourse(dto);
+	}
+
+	@Override
+	public int deletelist(DateDto dto) {
+		return dao.deletelist(dto);
 	}	
 	
 }

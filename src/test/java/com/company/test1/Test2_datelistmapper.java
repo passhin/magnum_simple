@@ -47,7 +47,7 @@ public class Test2_datelistmapper {
 		dto.setDno(1);
 		para.put("table", "datelist");
 		para.put("keyword", "dno");
-		log.info(""+dao.delete(para));
+		//log.info(""+dao.delete(para));
 		//delete 체크 완료
 	}
 	@Test

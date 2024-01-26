@@ -18,6 +18,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
+	var fnoValue;
+	var cnoValue;
 	function readFranchise() {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/listout",
@@ -35,22 +37,24 @@
 	}
 	function listResult(json) {
 		$(".r1 tbody").empty();
-		$
-				.each(
-						json.result,
-						function(idx, list) {
-							$("<tr>")
-									.append($("<td>").html(list.fname))
+		$.each(json.result,function(idx, list) {
+							var addButton = $("<input type='button' value='추가하기' class='add'>");
+							addButton.data("fno", list.fno);
+							$("<tr>").append($("<td>").html(list.fname))
 									.append($("<td>").html(list.content))
-									.append($("<td>").html(list.mname))
-									.append($("<td>").html(list.cname))
-									.append(
-											$("<td><input type='button' value='추가하기' class='add'></td>"))
-									.append(
-											$("<td><input type='hidden' value="+list.fno+" class='fno'></td>"))
+									.append($("<td>").html(list.mname)).append(
+											$("<td>").html(list.cname)).append(
+											$("<td>").append(addButton))
 									.appendTo(".r1 tbody");
+
 						});
+		$(".add").on("click", function() {
+			fnoValue = $(this).data("fno");
+			console.log(fnoValue);
+		});
+
 	}
+
 	function insertcourse() {
 		console.log("insert 도착");
 		$.ajax({
@@ -61,7 +65,7 @@
 				cnum : $("#cnum").val(),
 				mno : $("#mno").val(),
 				dno : $("#dno").val(),
-				fno : $(".fno").val()
+				fno : fnoValue
 			},
 			success : listResult2,
 			error : function(xhr, status, msg) {
@@ -70,20 +74,22 @@
 		});
 	}
 	function listResult2(json) {
-		$
-				.each(
-						json.result,
-						function(idx, list) {
-							$("<tr>")
-									.append($("<td>").html(list.fname))
+		//$(".r2 tbody").empty();
+		$.each(	json.result,function(idx, list) {
+							var deleteButton = $("<input type='button' value='삭제하기' class='cdelete'>");
+							deleteButton.data("cno", list.cno);
+							$("<tr>").append($("<td>").html(list.fname))
 									.append($("<td>").html(list.content))
-									.append($("<td>").html(list.mname))
-									.append($("<td>").html(list.address))
-									.append($("<td>").html(list.cost))
-									.append(
-											$("<td><input type='button' value='삭제하기' class='cdelete'></td>"))
+									.append($("<td>").html(list.mname)).append(
+											$("<td>").html(list.address))
+									.append($("<td>").html(list.cost)).append(
+											$("<td>").append(deleteButton))
 									.appendTo(".r2 tbody");
 						});
+		$(".cdelete").on("click", function() {
+			cnoValue = $(this).data("cno");
+			console.log(cnoValue);
+		});
 	}
 	function deletecourse() {
 		console.log("deletecourse 도착");
@@ -92,19 +98,37 @@
 			type : "get",
 			dataType : "json",
 			data : {
-				dno : $("#dno").val()
+				dno : $("#dno").val(),
+				cno : cnoValue
 			},
-			success : function(json){
-				let msg="코스 삭제 실패";
-				if(json.result==1){
-					msg="코스 삭제 성공";
+			success : function(json) {
+				let msg = "코스 삭제 실패";
+				if (json.result == 1) {
+					msg = "코스 삭제 성공";
 				}
 				alert(msg);
-				$("#dno").val('');
-				readFranchise();
+				readcourse();
 			},
 			error : function(xhr, status, msg) {
 				alert(".." + status + "/" + msg);
+			}
+		});
+	}
+	function readcourse() {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/course",
+			type : "get",
+			dataType : "json",
+			data : {
+				dno : $("#dno").val(),
+				fno : fnoValue
+			},
+			error : function(xhr, status, msg) {
+				alert(".." + status + "/" + msg);
+			},
+			success : function(json) {
+				$(".r2 tbody").empty();
+				listResult2(json);				
 			}
 		});
 	}
@@ -113,12 +137,19 @@
 			insertcourse();
 			return false;
 		});
-	});
-	$(function() {
 		$("body").on("click", ".cdelete", function() {
-			coursedelete();
+			deletecourse();
 			return false;
 		});
+	});
+	  function deleteView() {
+		    var dnoValue = $("#dno").val();
+		    location.href = '${pageContext.request.contextPath}/deleteview?dno=' + dnoValue;
+		  }
+	  function completeView() {
+		    var dnoValue = $("#dno").val();
+		    location.href = '${pageContext.request.contextPath}/coursecomplete?dno=' + dnoValue;
+		  }
 </script>
 <title></title>
 </head>
@@ -214,9 +245,7 @@
 		</table>
 	</div>
 	<input type="hidden" id="dno" value="${dto }">
-	<input type="button" value="데이트코스 삭제"
-		onclick="location.href='${pageContext.request.contextPath}/coursedelete'">
-	<input type="button" value="데이트코스 완료"
-		onclick="location.href='${pageContext.request.contextPath}/coursecomplete'">
+	<input type="button" value="데이트코스 삭제"	onclick="deleteView()">
+	<input type="button" value="데이트코스 완료"	onclick="completeView()">
 </body>
 </html>
