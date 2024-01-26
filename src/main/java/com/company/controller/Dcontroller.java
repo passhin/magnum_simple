@@ -70,7 +70,7 @@ public class Dcontroller {
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String Review(Map<String, String> para) {
-
+		System.out.println("test");
 		return "/simple/detail";
 	}
 }
