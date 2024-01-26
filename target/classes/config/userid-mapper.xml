@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.UserIdDao">
+  <insert id="insert" parameterType="UserIdDto">
+insert into userid (id, email, pw, name, birth, phone, ip) values (#{id},#{email},#{pw},#{name},#{birth},#{phone},#{ip})
+  </insert>
+  
+  <update id="update" parameterType="UserIdDto">
+  update userid set pw=#{pw}, phone=#{phone} where id=#{id}
+  </update>
+  
+  <delete id="delete" parameterType="UserIdDto">
+delete from userid  where id=#{id} and pw=#{pw}
+  </delete>
+  
+  
+  <select id="login" resultType="UserIdDto">
+  select * from userid where id=#{id} and pw=#{pw}
+  </select>
+  
+  <select id="read" parameterType="UserIdDto" resultType="UserIdDto">
+    select * from userid where email=#{email}
+    <!-- <if test="id!=null"> and id=#{id}</if> -->
+  </select>
+  
+  <select id="readAll" resultType="UserIdDto">
+  select * from userid order by uno desc
+  </select>
+  
+  <select id="idcheck" resultType="boolean">
+  select count(*) from userid where id = #{id} 
+  </select>
+  
+  <!-- 관리자 --> 
+   <select id="adminlist" resultType="UserIdDto">
+  select * from userid where urno=1 order by uno desc;
+  </select>
+  
+  <select id="adminpw" parameterType="UserIdDto" resultType="int">
+  select count(*) from userid where id='cwal15' and pw=#{pw}
+  </select>
+  
+  <update id="adminupdate" parameterType="UserIdDto">
+  update userid set pw=#{pw} where id=#{id}
+  </update>
+  
+  <select id="userread" parameterType="UserIdDto" resultType="UserIdDto">
+  select * from userid where id=#{id}
+  </select>
+   <delete id="admindelete" parameterType="UserIdDto">
+  delete from userid where uno=#{uno}
+  </delete>
+  
+</mapper>
