@@ -251,6 +251,7 @@ footer {
 					<div class="dropdown-content">
 						<a class="dropdown-item"
 							href="${pageContext.request.contextPath }/list.fran">데이트장소 보기</a>
+
 						<c:if test="${login.getId() == 'admin'}">
 							<a class="dropdown-item"
 								href="${pageContext.request.contextPath }/DateList">데이트코스 추가</a>
