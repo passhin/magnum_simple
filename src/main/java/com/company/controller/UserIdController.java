@@ -19,209 +19,209 @@ import com.company.service.UserIdService;
 @Controller
 public class UserIdController {
 
-	@Autowired
-	UserIdService service;
+   @Autowired
+   UserIdService service;
 
-	@RequestMapping(value = "/main.magnum", method = RequestMethod.GET)
-	public String main() {
-		return "semin/main";
-	}
+   @RequestMapping(value = "/main.magnum", method = RequestMethod.GET)
+   public String main() {
+      return "semin/main";
+   }
 
-	@RequestMapping(value = "/login.magnum", method = RequestMethod.GET)
-	public String login_View() {
-		return "semin/login";
-	}
+   @RequestMapping(value = "/login.magnum", method = RequestMethod.GET)
+   public String login_View() {
+      return "semin/login";
+   }
 
-//·Î±×ÀÎ
-	@RequestMapping(value = "/login.magnum", method = RequestMethod.POST)
-	public String login(UserIdDto dto, HttpServletRequest request,RedirectAttributes rttr) {
-		String result="";
-		UserIdDto login = service.login(dto);
-		HttpSession session = request.getSession();
+//ë¡œê·¸ì¸
+   @RequestMapping(value = "/login.magnum", method = RequestMethod.POST)
+   public String login(UserIdDto dto, HttpServletRequest request,RedirectAttributes rttr) {
+      String result="";
+      UserIdDto login = service.login(dto);
+      HttpSession session = request.getSession();
 
-		if (login != null) {
-			result="·Î±×ÀÎµÇ¾ú½À´Ï´Ù";
-			session.setAttribute("login", login);
-			rttr.addFlashAttribute("success",result);
-			return "redirect:/main.magnum";
-		} else {
-			result="¾ÆÀÌµğ¿Í ºñ¹øÀ» È®ÀÎÇØÁÖ¼¼¿ä";
-			session.setAttribute("login", null);
-			rttr.addFlashAttribute("success",result);
-			return "redirect:/login.magnum";
-		}
-		
-	}
+      if (login != null) {
+         result="ë¡œê·¸ì¸ë˜ì—ˆìŠµë‹ˆë‹¤";
+         session.setAttribute("login", login);
+         rttr.addFlashAttribute("success",result);
+         return "redirect:/main.magnum";
+      } else {
+         result="ì•„ì´ë””ì™€ ë¹„ë²ˆì„ í™•ì¸í•´ì£¼ì„¸ìš”";
+         session.setAttribute("login", null);
+         rttr.addFlashAttribute("success",result);
+         return "redirect:/login.magnum";
+      }
+      
+   }
 
-//·Î±×¾Æ¿ô
-	@RequestMapping(value = "/logout.magnum", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/login.magnum";
-	}
+//ë¡œê·¸ì•„ì›ƒ
+   @RequestMapping(value = "/logout.magnum", method = RequestMethod.GET)
+   public String logout(HttpSession session) {
+      session.invalidate();
+      return "redirect:/login.magnum";
+   }
 
-//À¯Àú È¸¿ø°¡ÀÔ
-	@RequestMapping(value = "/membership.magnum", method = RequestMethod.GET)
-	public String membership_View() {
-		return "semin/membership";
+//ìœ ì € íšŒì›ê°€ì…
+   @RequestMapping(value = "/membership.magnum", method = RequestMethod.GET)
+   public String membership_View() {
+      return "semin/membership";
 
-	}
+   }
 
-	@RequestMapping(value = "/membership.magnum", method = RequestMethod.POST)
-	public String membership(UserIdDto dto, Model model,RedirectAttributes rttr) {
-		String result="°¡ÀÔµÇÁö ¾Ê¾Ò½À´Ï´Ù";
-		model.addAttribute("dto", service.insert(dto));
-		System.out.println(dto.getId());
-		if(dto!= null) {
-			result = "È¸¿ø°¡ÀÔµÇ¾ú½À´Ï´Ù";
-		}
-		
-		rttr.addFlashAttribute("success",result);
-		return "redirect:/login.magnum";
-	}
-//À¯Àú È¸¿ø°¡ÀÔ
+   @RequestMapping(value = "/membership.magnum", method = RequestMethod.POST)
+   public String membership(UserIdDto dto, Model model,RedirectAttributes rttr) {
+      String result="ê°€ì…ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤";
+      model.addAttribute("dto", service.insert(dto));
+      System.out.println(dto.getId());
+      if(dto!= null) {
+         result = "íšŒì›ê°€ì…ë˜ì—ˆìŠµë‹ˆë‹¤";
+      }
+      
+      rttr.addFlashAttribute("success",result);
+      return "redirect:/login.magnum";
+   }
+//ìœ ì € íšŒì›ê°€ì…
 
-//À¯Àú ¾ÆÀÌµğ Ã£±â
-	@RequestMapping(value = "/id.magnum", method = RequestMethod.GET)
-	public String id_View() {
-		return "simple/id";
-	}
+//ìœ ì € ì•„ì´ë”” ì°¾ê¸°
+   @RequestMapping(value = "/id.magnum", method = RequestMethod.GET)
+   public String id_View() {
+      return "simple/id";
+   }
 
-	@RequestMapping(value = "/id.magnum", method = RequestMethod.POST)
-	public String id(UserIdDto dto, Model model, RedirectAttributes rttr) {
-		String result = "ÀÌ¸ŞÀÏÀ» È®ÀÎÇØÁÖ¼¼¿ä";
-		UserIdDto re = service.read(dto);
+   @RequestMapping(value = "/id.magnum", method = RequestMethod.POST)
+   public String id(UserIdDto dto, Model model, RedirectAttributes rttr) {
+      String result = "ì´ë©”ì¼ì„ í™•ì¸í•´ì£¼ì„¸ìš”";
+      UserIdDto re = service.read(dto);
 
-		if (re != null) {
-			result = "¾ÆÀÌµğ´Â" + re.getId() + "ÀÔ´Ï´Ù";
-		}
-		model.addAttribute("dto", re);
-		rttr.addFlashAttribute("success", result);		
-		return "redirect:/login.magnum";
-	}
-	
-	//À¯Àú ºñ¹Ğ¹øÈ£ Ã£±â
-	@RequestMapping(value = "/pw.magnum", method = RequestMethod.GET)
-	public String pw_View() {
-		return "semin/pw";
-	}
-	@RequestMapping(value = "/pw.magnum", method = RequestMethod.POST)
-	public String pw(UserIdDto dto, Model model, RedirectAttributes rttr) {
-		String result = "¾ÆÀÌµğ,ÀÌ¸ŞÀÏÀ» È®ÀÎÇØÁÖ¼¼¿ä";
-		UserIdDto re = service.read(dto);
+      if (re != null) {
+         result = "ì•„ì´ë””ëŠ”" + re.getId() + "ì…ë‹ˆë‹¤";
+      }
+      model.addAttribute("dto", re);
+      rttr.addFlashAttribute("success", result);      
+      return "redirect:/login.magnum";
+   }
+   
+   //ìœ ì € ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
+   @RequestMapping(value = "/pw.magnum", method = RequestMethod.GET)
+   public String pw_View() {
+      return "semin/pw";
+   }
+   @RequestMapping(value = "/pw.magnum", method = RequestMethod.POST)
+   public String pw(UserIdDto dto, Model model, RedirectAttributes rttr) {
+      String result = "ì•„ì´ë””,ì´ë©”ì¼ì„ í™•ì¸í•´ì£¼ì„¸ìš”";
+      UserIdDto re = service.read(dto);
 
-		if (re != null) {
-			result = "ºñ¹Ğ¹øÈ£´Â" + re.getPw() + "ÀÔ´Ï´Ù";
-		}
-		model.addAttribute("dto", re);
-		rttr.addFlashAttribute("success", result);
-		
-		
-		return "redirect:/login.magnum";
-	}
-	//À¯Àú ºñ¹Ğ¹øÈ£ Ã£±â
-	
-	// »ç¿ëÀÚ Á¤º¸ È®ÀÎ ¹× ¼öÁ¤
-	@RequestMapping(value = "/modification.magnum", method = RequestMethod.GET)
-	public String modi_View(UserIdDto dto, Model model) {
-		model.addAttribute("dto", service.userread(dto));
-		return "semin/modification";
-	}
-	
-	@RequestMapping(value = "/modification.magnum", method = RequestMethod.POST)
-	public String modi(UserIdDto dto, Model model, RedirectAttributes rttr) {
-	String result = "¼öÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù";
-		if (service.update(dto) == 1) {
-			result = "¼öÁ¤µÇ¾ú½À´Ï´Ù";
-		}
-	model.addAttribute("dto", service.update(dto));
-		rttr.addFlashAttribute("success", result);
-		return "redirect:/login.magnum";
-	}
-	// »ç¿ëÀÚ Á¤º¸ È®ÀÎ ¹× ¼öÁ¤
-	
-	// È¸¿ø Å»Åğ
-	@RequestMapping(value = "/withdrawal.magnum", method = RequestMethod.GET)
-	public String delete() {
-		return "semin/withdrawal";
-	}
+      if (re != null) {
+         result = "ë¹„ë°€ë²ˆí˜¸ëŠ”" + re.getPw() + "ì…ë‹ˆë‹¤";
+      }
+      model.addAttribute("dto", re);
+      rttr.addFlashAttribute("success", result);
+      
+      
+      return "redirect:/login.magnum";
+   }
+   //ìœ ì € ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
+   
+   // ì‚¬ìš©ì ì •ë³´ í™•ì¸ ë° ìˆ˜ì •
+   @RequestMapping(value = "/modification.magnum", method = RequestMethod.GET)
+   public String modi_View(UserIdDto dto, Model model) {
+      model.addAttribute("dto", service.userread(dto));
+      return "semin/modification";
+   }
+   
+   @RequestMapping(value = "/modification.magnum", method = RequestMethod.POST)
+   public String modi(UserIdDto dto, Model model, RedirectAttributes rttr) {
+   String result = "ìˆ˜ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤";
+      if (service.update(dto) == 1) {
+         result = "ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤";
+      }
+   model.addAttribute("dto", service.update(dto));
+      rttr.addFlashAttribute("success", result);
+      return "redirect:/login.magnum";
+   }
+   // ì‚¬ìš©ì ì •ë³´ í™•ì¸ ë° ìˆ˜ì •
+   
+   // íšŒì› íƒˆí‡´
+   @RequestMapping(value = "/withdrawal.magnum", method = RequestMethod.GET)
+   public String delete() {
+      return "semin/withdrawal";
+   }
 
-	@RequestMapping(value = "/withdrawal.magnum", method = RequestMethod.POST)
-	public String delete(UserIdDto dto, Model model,RedirectAttributes rttr) {
-		String result="¿À·ù";
-		model.addAttribute("dto", service.delete(dto));
-		if(dto!=null) {
-			result="Å»ÅğµÇ¾ú½À´Ï´Ù.";
-		}
-		
-		rttr.addFlashAttribute("success",result);
-		return "redirect:/login.magnum";
-	}
-	// È¸¿ø Å»Åğ
-	
-	// Áßº¹Ã¼Å©
-	@RequestMapping(value = "/IDCheck.magnum", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<Boolean> check(UserIdDto dto) {
-		boolean result = true;
+   @RequestMapping(value = "/withdrawal.magnum", method = RequestMethod.POST)
+   public String delete(UserIdDto dto, Model model,RedirectAttributes rttr) {
+      String result="ì˜¤ë¥˜";
+      model.addAttribute("dto", service.delete(dto));
+      if(dto!=null) {
+         result="íƒˆí‡´ë˜ì—ˆìŠµë‹ˆë‹¤.";
+      }
+      
+      rttr.addFlashAttribute("success",result);
+      return "redirect:/login.magnum";
+   }
+   // íšŒì› íƒˆí‡´
+   
+   // ì¤‘ë³µì²´í¬
+   @RequestMapping(value = "/IDCheck.magnum", method = RequestMethod.GET)
+   @ResponseBody
+   public ResponseEntity<Boolean> check(UserIdDto dto) {
+      boolean result = true;
 
-		if (dto.getId().trim().isEmpty()) {
-			result = false;
-		} else {
-			if (service.idcheck(dto)) {
-				result = false;
-			} else {
-				result = true;
-			}
-		}
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
-	// Áßº¹Ã¼Å©
-	
-	// °ü¸®ÀÚ ¸®½ºÆ®
-	@RequestMapping(value = "/adminlist.magnum", method = { RequestMethod.GET, RequestMethod.POST })
-	public String adminlist(UserIdDto dto, Model model) {
-		model.addAttribute("list", service.adminlist());
-		return "semin/adminlist";
-	}
+      if (dto.getId().trim().isEmpty()) {
+         result = false;
+      } else {
+         if (service.idcheck(dto)) {
+            result = false;
+         } else {
+            result = true;
+         }
+      }
+      return new ResponseEntity<>(result, HttpStatus.OK);
+   }
+   // ì¤‘ë³µì²´í¬
+   
+   // ê´€ë¦¬ì ë¦¬ìŠ¤íŠ¸
+   @RequestMapping(value = "/adminlist.magnum", method = { RequestMethod.GET, RequestMethod.POST })
+   public String adminlist(UserIdDto dto, Model model) {
+      model.addAttribute("list", service.adminlist());
+      return "semin/adminlist";
+   }
 
-	// °ü¸®ÀÚ ºñ¹ø
-	@RequestMapping(value = "/adminpw.magnum", method = RequestMethod.GET)
-	public String adminpw_View(String id, Model model) {
-		model.addAttribute("id", id);
-		return "semin/adminpw";
-	}
-	// °ü¸®ÀÚ ¸®½ºÆ®
+   // ê´€ë¦¬ì ë¹„ë²ˆ
+   @RequestMapping(value = "/adminpw.magnum", method = RequestMethod.GET)
+   public String adminpw_View(String id, Model model) {
+      model.addAttribute("id", id);
+      return "semin/adminpw";
+   }
+   // ê´€ë¦¬ì ë¦¬ìŠ¤íŠ¸
 
-	// °ü¸®ÀÚ »ç¿ëÀÚÁ¤º¸º¯°æ
-	@RequestMapping(value = "/adminmodification.magnum", method = RequestMethod.GET)
-	public String adminmodi_View(UserIdDto dto, Model model) {
-		model.addAttribute("dto", service.userread(dto));
-		return "semin/adminmodification";
-	}
+   // ê´€ë¦¬ì ì‚¬ìš©ìì •ë³´ë³€ê²½
+   @RequestMapping(value = "/adminmodification.magnum", method = RequestMethod.GET)
+   public String adminmodi_View(UserIdDto dto, Model model) {
+      model.addAttribute("dto", service.userread(dto));
+      return "semin/adminmodification";
+   }
 
-	@RequestMapping(value = "/adminmodification.magnum", method = RequestMethod.POST)
-	public String adminmodi(UserIdDto dto, Model model,RedirectAttributes rttr) {
-		String result="½ÇÆĞ";
-		model.addAttribute("dto", service.adminupdate(dto));
-		if(dto!=null) {
-			result="¼öÁ¤µÇ¾ú½À´Ï´Ù";
-		}
-		rttr.addFlashAttribute("success", result);
-		return "redirect:/adminlist.magnum";
-	}
-	// °ü¸®ÀÚ »ç¿ëÀÚÁ¤º¸º¯°æ
-	
-	//È¸¿øÁ¤º¸ »èÁ¦
-	@RequestMapping(value = "/admindelete.magnum", method = {RequestMethod.GET,RequestMethod.POST})
-	public String admindelete(UserIdDto dto, Model model,RedirectAttributes rttr) {
-		String result="½ÇÆĞ";
-		model.addAttribute("dto", service.admindelete(dto));
-		if(dto!=null) {
-			result="Å»ÅğµÇ¾ú½À´Ï´Ù";
-		}
-		rttr.addFlashAttribute("success", result);
-		return "redirect:/adminlist.magnum";
-	}
-	//È¸¿øÁ¤º¸ »èÁ¦
+   @RequestMapping(value = "/adminmodification.magnum", method = RequestMethod.POST)
+   public String adminmodi(UserIdDto dto, Model model,RedirectAttributes rttr) {
+      String result="ì‹¤íŒ¨";
+      model.addAttribute("dto", service.adminupdate(dto));
+      if(dto!=null) {
+         result="ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤";
+      }
+      rttr.addFlashAttribute("success", result);
+      return "redirect:/adminlist.magnum";
+   }
+   // ê´€ë¦¬ì ì‚¬ìš©ìì •ë³´ë³€ê²½
+   
+   //íšŒì›ì •ë³´ ì‚­ì œ
+   @RequestMapping(value = "/admindelete.magnum", method = {RequestMethod.GET,RequestMethod.POST})
+   public String admindelete(UserIdDto dto, Model model,RedirectAttributes rttr) {
+      String result="ì‹¤íŒ¨";
+      model.addAttribute("dto", service.admindelete(dto));
+      if(dto!=null) {
+         result="íƒˆí‡´ë˜ì—ˆìŠµë‹ˆë‹¤";
+      }
+      rttr.addFlashAttribute("success", result);
+      return "redirect:/adminlist.magnum";
+   }
+   //íšŒì›ì •ë³´ ì‚­ì œ
 }

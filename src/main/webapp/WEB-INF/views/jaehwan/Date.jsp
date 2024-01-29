@@ -162,7 +162,7 @@
 		</div>
 		<div class="form-group" style="text-align: right; margin-top: 10px;" class="btn btn-success">
 			<input type="button" id="listout" value="조건 설정 완료"
-				class="btn btn-success">
+				class="btn btn-success form-control">
 		</div>
 		<script>
 			$(function() {
