@@ -1,0 +1,8 @@
+@charset "UTF-8";
+    .images_detail img {
+        width: 400px;
+        height: 400px;
+        margin-bottom:10px;
+    }
+	
+

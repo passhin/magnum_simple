@@ -7,54 +7,103 @@
 		insert into
 		datecourse(dno,cnum,mno,fno) values(#{dno},#{cnum},#{mno},#{fno})
 	</insert>
+
 	<insert id="insertlist" parameterType="DateDto">
 		insert into
 		datelist(uno,dtitle) values(#{uno},#{dtitle})
 	</insert>
+
 	<update id="updatecourse" parameterType="DateCourseDto">
-		update datecourse set course=course+1 where dno=#{dno};
+		update datecourse set
+		course=course+1 where dno=#{dno}
 	</update>
+
+	<update id="updatedcnt" parameterType="int">
+		update datelist set dcnt =
+		( select count(*) from datecourse WHERE
+		datelist.dno = datecourse.dno)
+		where dno=#{dno} and datelist.dno in
+		(select dno from datecourse);
+	</update>
+
+	<delete id="deletecourse" parameterType="DateCourseDto">
+		delete from datecourse
+		where cno=#{cno} and dno=#{dno}
+	</delete>
+
+	<delete id="deletelist" parameterType="DateDto">
+		delete from datelist where
+		dno=#{dno}
+	</delete>
+
+	<select id="outlist" parameterType="DateCourseDto"
+		resultType="DateCourseDto">
+		select * from
+		datelist d join
+		datecourse c using(dno) join subway s using(mno) join
+		franchise f
+		using(fno) where d.dno=#{dno}
+	</select>
+
+	<select id="resultlist" parameterType="int"
+		resultType="DateCourseDto">
+		select d.dtitle, d.dno, MAX(c.fno) AS fno, MAX(s.mname) AS
+		mname, MAX(d.dcnt) AS dcnt, MAX(d.ddate) AS ddate
+		FROM datelist d
+		LEFT JOIN datecourse c ON d.dno = c.dno
+		LEFT JOIN subway s ON c.mno = s.mno
+		WHERE c.mno = #{mno}
+		GROUP BY d.dtitle, d.dno;
+	</select>
 
 	<select id="readFran" parameterType="int"
 		resultType="FranchiseDto">
-		select * from 
-		franchise f left join subway s 
+		select * from
+		franchise f left join subway s
 		on f.mno=s.mno
-		where fno=#{fno};
-	</select>
-	<select id="maxDno" resultType="DateDto">
-		select dno from datelist order by dno desc limit 1;
+		where fno=#{fno}
 	</select>
 
-	<delete id="deletecourse" parameterType="DateCourseDto">
-		delete from datecourse where cno=#{cno} and dno=#{dno}
-	</delete>	
-	<delete id="deletelist" parameterType="DateDto">
-		delete from datelist where dno=#{dno};
-	</delete>
-	<select id="readCourse" parameterType="DateCourseDto" resultType="DateCourseDto">
-		SELECT f.fno, f.fname, f.mno, f.cost, f.address,
-		f.content, dc.dno, dc.cno, s.mname
-		FROM franchise f JOIN datecourse dc ON f.fno = dc.fno JOIN subway s 
-		ON f.mno = s.mno
-		where f.fno=#{fno} and dno=#{dno};
+	<select id="maxDno" resultType="DateDto">
+		select dno from datelist order by
+		dno desc limit 1
 	</select>
-		<select id="course" parameterType="DateCourseDto" resultType="DateCourseDto">
-		SELECT f.fno, f.fname, f.mno, f.cost, f.address,
-		f.content, dc.dno, dc.cno, s.mname
-		FROM franchise f JOIN datecourse dc ON f.fno = dc.fno JOIN subway s 
-		ON f.mno = s.mno
-		where dno=#{dno};
+
+	<select id="readCourse" parameterType="DateCourseDto"
+		resultType="DateCourseDto">
+		select f.fno, f.fname, f.mno, f.cost, f.address,
+		f.content,
+		dc.dno, dc.cno, s.mname
+		from franchise f join datecourse dc on f.fno =
+		dc.fno join subway s
+		on f.mno = s.mno
+		where f.fno=#{fno} and dno=#{dno}
 	</select>
+
+	<select id="course" parameterType="DateCourseDto"
+		resultType="DateCourseDto">
+		select f.fno, f.fname, f.mno, f.cost, f.address,
+		f.content,
+		dc.dno, dc.cno, s.mname
+		from franchise f join datecourse dc on f.fno =
+		dc.fno join subway s
+		on f.mno = s.mno
+		where dno=#{dno}
+	</select>
+
 	<select id="readAll" parameterType="DateDto"
 		resultType="java.util.HashMap">
 		select * from ${table}
 	</select>
+
 	<select id="readfranchise" parameterType="FranchiseDto"
 		resultType="FranchiseDto">
-		select * from franchise f left join category c on f.cnum = c.cnum left join
-		subway s on f.mno = s.mno where f.cnum=#{cnum} and f.mno=#{mno};
+		select * from franchise f left join category c on f.cnum =
+		c.cnum left join
+		subway s on f.mno = s.mno where f.cnum=#{cnum} and
+		f.mno=#{mno}
 	</select>
+
 	<select id="readlist" parameterType="DateDto"
 		resultType="DateDto">
 		select * from datelist where mno=#{mno}

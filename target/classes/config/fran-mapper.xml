@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.FranDao">
+	<insert id="insert" parameterType="FranDto">
+		insert into franchise (fname,cnum,starttime,endtime,cost,mno,address,content,phone) values
+		 (#{fname},#{cnum},#{starttime},#{endtime},#{cost},#{mno},#{address},#{content},#{phone})
+	</insert>
+	
+	<update id="update" parameterType="FranDto">
+		update franchise set fname= #{fname}, cnum= #{cnum}, starttime= #{starttime}, endtime= #{endtime},
+		 cost= #{cost}, mno= #{mno}, address= #{address}, content= #{content}, phone= #{phone}
+				where fno = #{fno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete f, i from franchise f join images i ON f.fno = i.fno where f.fno = #{fno}
+	</delete>
+	
+	<select id="read4" resultType="FranDto">
+		select distinct f.fno, f.fname, f.mno, f.starttime, f.endtime, f.cost,
+		f.cnum,f.address,f.phone,f.hit, i.iname,i.fno 
+		from franchise f left join images i 
+		on f.fno = i.fno 
+		order by f.hit desc limit 4
+	</select>
+	
+	<select id="read" parameterType="int" resultType="FranDto">
+		select distinct f.fno, f.fname, f.mno, f.starttime, f.endtime, f.cost, f.cnum, f.address,
+		f.phone, f.content, f.fdate, i.iname,i.fno 
+		from franchise f left join images i 
+		on f.fno = i.fno
+		where f.fno = #{fno}
+		limit 1
+	</select>
+	
+	<select  id="listtotal1" resultType="int">
+		select  count(*) from franchise	
+	</select>
+	
+	<select  id="listCnt1" resultType="FranDto" parameterType="java.util.HashMap">
+		select f.fno, MAX(f.fname) 'fname', f.mno,  MAX(f.starttime) 'starttime', 
+    	MAX(f.endtime)'endtime', MAX(f.cost) 'cost', MAX(f.cnum) 'cnum', 
+   	 	MAX(f.address) 'address', MAX(f.phone) 'phone', MAX(f.content) 'content', 
+    	MAX(f.fdate) 'fdate', MAX(i.iname) 'iname', MAX(i.fno) 'image_fno'
+		from franchise f left join images i 
+		using (fno) 
+		group by f.fno
+		order by f.fno desc
+		limit #{pstartno} , #{onepagelimit}	
+	</select>
+	
+	<select  id="listtotal2" resultType="int">
+		select count(*) from franchise	where mno = #{mno}
+	</select>
+	
+	<select  id="listCnt2" resultType="FranDto" parameterType="java.util.HashMap">
+		select f.fno, MAX(f.fname) 'fname', f.mno,  MAX(f.starttime) 'starttime', 
+    	MAX(f.endtime)'endtime', MAX(f.cost) 'cost', MAX(f.cnum) 'cnum', 
+   	 	MAX(f.address) 'address', MAX(f.phone) 'phone', MAX(f.content) 'content', 
+    	MAX(f.fdate) 'fdate', MAX(i.iname) 'iname', MAX(i.fno) 'image_fno'
+		from franchise f left join images i 
+		using (fno) 
+		where mno = #{mno}
+		group by f.fno
+		order by f.fno desc
+		limit #{pstartno} , #{onepagelimit}	
+	</select>
+</mapper>

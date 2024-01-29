@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+div#heartCenter {
+    padding: 0 45%;
+}
+
+h5.zoayo {
+    font-family: 'nanum-gothic;';
+    font-family: 'Gowun Batang';
+    color: #336033;
+    font-weight: bold;
+    margin-top: 13px;
+    font-size: 23px;
+}
+div#heartBtnContainer {
+	    width: 201px;
+    text-align: center;
+}
+
+button#heartBtn {
+	    width: 130px;
+    border: none;
+    background-color: white;
+}
+
+img#btnImg {
+	width: 100%;
+}
+
+p#cntHeart {
+    margin-top: -2px;
+    font-family: 'Nanum Gothic';
+    width: 199px;
+    font-weight: bold;
+    color: #637a69;
+}
+
+div#borderLine {
+    width: 50%;
+    margin: 40px auto;
+    height: 12px;
+}

@@ -18,7 +18,14 @@
 		<property name="configLocation" value="classpath:config/mybatis-config.xml"/>
 		<property name="mapperLocations">
 			<list>
+				<value>classpath:config/ajax-mapper.xml</value>
 				<value>classpath:config/datelist-mapper.xml</value>
+				<value>classpath:config/fran-mapper.xml</value>
+				<value>classpath:config/heart-mapper.xml</value>
+				<value>classpath:config/hlist-mapper.xml</value>
+				<value>classpath:config/images-mapper.xml</value>
+				<value>classpath:config/review-mapper.xml</value>
+				<value>classpath:config/userid-mapper.xml</value>				
 			</list>
 		</property>
 	</bean>

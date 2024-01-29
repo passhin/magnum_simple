@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+div#allCon {
+	font-family: 'Gowun Dodum', sans-serif;
+}
+
+.tr_update textarea {
+	width: 100%;
+	height: 96px;
+	font-size: 15px;
+}
+
+textarea:not(#rcontent) { /* 리뷰 스타일 */
+	resize: none;
+	border: none;
+	 font-family: 'Nanum Gothic', sans-serif;
+}
+
+button.tr_update, button.tr_delete {
+	font-family: 'Gowun Dodum', sans-serif;
+	border: 1px solid white;
+	border-radius: 15px;
+	width: 86px;
+	height:30px;
+	
+	margin-right: 6px;
+}
+
+button.tr_update{background-color: #c0e0c6;}
+
+
+button.tr_delete {background-color: #e6e6e6;}
+
+
+
+td.unoNum {
+	font-size: 0.001px;
+}
+
+.review-cnt, .avgAnnounce, .star-avg, .write-rcontent, .insert-btn {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sel-stars { 
+	margin-bottom: 19px;
+	text-align: center;
+
+}
+
+label#selStar {
+	font-size: 14px;
+	font-weight: bold;
+	margin-right: 17px;
+}
+
+.write-rcontent {
+	margin-right: 10px;
+}
+
+textarea#rcontent { /* 리뷰 입력칸 */
+	width: 671px;
+	height: 83px;
+	padding: 15px;
+	font-family: 'Gowun Dodum', sans-serif;
+}
+
+.container.panel.panel-success { /* 컨텐츠 가운데정렬 */
+	text-align: center;
+}
+ 
+p.review-cnt {
+	font-family: 'Gowun Dodum', sans-serif;
+	font-weight: bold; font-size : 17px; 
+	color: #668a66;
+	font-size: 17px;
+}
+
+p.avgAnnounce {
+	font-size: 15px;
+}
+
+p.star-avg {
+    font-size: 40px;
+    font-weight: bold;
+    color: #547457;
+}
+
+label#selStar {
+	font-size: 14px;
+}
+
+div#subBox {
+	width: 112px;
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	top: -50px;
+	left: 30px;
+}
+
+.starStyle { /* 후기작성시의 별 스타일 */
+	display: inline-block;
+	margin-right: 15px;
+	margin-left: 3px;
+}
+
+.writeBox {
+	text-align: center;
+	display: inline-block;
+	width: 84%;
+}
+
+table.rtable {
+	width: 76%;
+	margin: 0 0 0 150px;
+}
+
+tr.greatBox {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+td.tr_update {
+	width: 95%;
+}
+
+td.tr_content {
+    width: 730px;
+}
+
+.greatbox td {
+    margin-right: 25px;
+}
+
+td.tr_content textarea{
+width:100%;
+height:100%;
+	}
+
+
+.container-reviewWrite {
+	width: 55%;
+	margin: auto;
+}
+
+.insert-btn {
+	width: 700px;
+}
+
+
+div#upperBox {
+    width: 100%;
+    height: 22%;
+}
+
+
+input#insert {
+	font-family: 'Gowun Dodum', sans-serif;
+	font-size: 15px; margin : 20px 0 65px 0;
+	border-radius: 24px;
+	border: 1px solid #739978;
+	width: 100%;
+	background-color: #c0e0c6;
+	height: 46px;
+	margin: 20px 0 65px 0;
+}
+
+
+.greatBox textarea {
+    padding-top: 13px;
+}

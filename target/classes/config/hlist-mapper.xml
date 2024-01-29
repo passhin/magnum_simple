@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.company.dao.HLDao">
+ 
+  <select id="readAll" resultType="HLDto">
+		select h.uno as 'uno', d.dno as 'dno', d.dtitle as'dtitle', f.fname as 'fname', s.mname as 'mname', h.hdate 'hdate' ,d.dcnt as 'dcnt'
+		from heartlist h
+		join datelist d on d.dno=h.dno
+		join datecourse c on c.dno=h.dno
+		join franchise f on c.fno=f.fno
+		join subway s on s.mno=c.mno
+		where h.uno=#{uno}
+		group by d.dtitle, d.dno, f.fname ,s.mname,h.hdate,h.uno,d.dcnt
+		order by d.dtitle, h.hdate desc;
+	</select> 
+<delete id="delHeartList">
+	delete from heartlist where uno=#{uno} and dno=#{dno}
+</delete> 
+ </mapper>

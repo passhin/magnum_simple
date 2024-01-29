@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.AjaxDao">
+	<select  id="listmn1" resultType="FranDto" parameterType="FranDto">
+		select f.fno, MAX(f.fname) 'fname', f.mno,  MAX(f.starttime) 'starttime', 
+    	MAX(f.endtime)'endtime', MAX(f.cost) 'cost', MAX(f.cnum) 'cnum', 
+   	 	MAX(f.address) 'address', MAX(f.phone) 'phone', MAX(f.content) 'content', 
+    	MAX(f.fdate) 'fdate', MAX(i.iname) 'iname', MAX(i.fno) 'image_fno'
+		from franchise f left join images i USING (fno) 
+		group by f.fno
+		order by f.fno DESC 
+		limit 10;
+		
+	</select>
+	
+	<select  id="listmn2" resultType="FranDto" parameterType="FranDto">
+		select f.fno, MAX(f.fname) 'fname', f.mno,  MAX(f.starttime) 'starttime', 
+    	MAX(f.endtime)'endtime', MAX(f.cost) 'cost', MAX(f.cnum) 'cnum', 
+   	 	MAX(f.address) 'address', MAX(f.phone) 'phone', MAX(f.content) 'content', 
+    	MAX(f.fdate) 'fdate', MAX(i.iname) 'iname', MAX(i.fno) 'image_fno'
+		from franchise f left join images i USING (fno) 
+		where f.mno = #{mno}
+		group by f.fno
+		order by f.fno DESC 
+		limit 10;
+		
+	</select>
+</mapper>

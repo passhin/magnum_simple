@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.company.dao.ReviewDao">
+	
+	<insert id="insert" parameterType="ReviewDto">
+		insert into review(uno, dno, r_star ,rcontent) values(#{uno}, #{dno},
+		#{r_star}, #{rcontent})
+	</insert>
+	<update id="update" parameterType="ReviewDto">
+		update review set rcontent=#{rcontent} where rno=#{rno}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from review where rno=#{rno}
+	</delete>
+ 
+	<select id="readAll" resultType="ReviewDto">
+ 		SELECT r.rno as 'rno', r.uno as 'uno', u.id as 'id', r.dno as 'dno',r.rcontent as 'rcontent', r.r_star as 'r_star',r.rdate as 'rdate',
+  (SELECT AVG(r_star) FROM review WHERE dno = #{dno}) as 'avgRead',
+  (SELECT COUNT(rno) FROM review WHERE dno = #{dno}) as 'cntRead'
+FROM
+  review r
+JOIN
+  userid u ON r.uno = u.uno
+WHERE
+  dno = #{dno}
+GROUP BY
+  r.rno, u.id, r.rcontent, r.r_star, r.rdate
+ORDER BY
+  r.rdate DESC;
+	</select>
+	
+	<select id="avgRead" resultType="ReviewDto" parameterType="int">
+		select avg(r_star)as'avgRead' from review where dno=#{dno}
+	</select>
+	
+	<select id="cntRead" resultType="ReviewDto" parameterType="int">
+		select count(rno)as'cntRead' from review where dno=#{dno}
+	</select>
+	
+ 
+ </mapper>

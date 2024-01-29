@@ -1,13 +1,7 @@
 package com.company.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,16 +22,15 @@ public class Dcontroller {
 
 	@RequestMapping(value = "/DateList", method = RequestMethod.GET)
 	public String DateList() {
-		return "/simple/Datelist";
+		return "/jaehwan/Datelist";
 	}
 
 	@RequestMapping(value = "/Date", method = RequestMethod.GET)
 	public String Date(String title, Model model, DateDto dto) {
 		model.addAttribute("dtitle", title);
 		dto.setDtitle(title);
-		dto.setUno(1);
 		model.addAttribute("dto", service.insertlist(dto));
-		return "/simple/Date";
+		return "/jaehwan/Date";
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
@@ -79,18 +72,34 @@ public class Dcontroller {
 		System.out.println(result);
 		return result;
 	}
+	
 	@RequestMapping(value = "/deleteview", method = RequestMethod.GET)
 	public String Coursedelete(DateDto dto) {
 		service.deletelist(dto);		
-		return "/simple/list";
+		return "/semin/main";
 		//홈으로 변경예정
 	}
 	
 	@RequestMapping(value = "/coursecomplete", method = RequestMethod.GET)
 	public String Coursecomplete(Model model, int dno) {
-		model.addAttribute("dto",dno);
-		System.out.println(dno);
-		return "/simple/list";
+		service.updatedcnt(dno);
+		return "/jaehwan/list";
 	}
-
+	
+	@RequestMapping(value = "/courselist", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> Courselist(int mno) {
+		Map<String,Object> result=new HashMap<>();
+		result.put("result", service.resultlist(mno));
+		return result;
+	}
+	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String detail(Model model, int dno) {
+		System.out.println(dno);
+		model.addAttribute("list",service.outlist(dno));
+		model.addAttribute("title",service.outlist(dno).get(0).getDtitle());
+		return "/jaehwan/detail";
+	}
+	
 }

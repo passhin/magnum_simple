@@ -24,12 +24,12 @@ public class UserIdController {
 
 	@RequestMapping(value = "/main.magnum", method = RequestMethod.GET)
 	public String main() {
-		return "userid/main";
+		return "semin/main";
 	}
 
 	@RequestMapping(value = "/login.magnum", method = RequestMethod.GET)
 	public String login_View() {
-		return "userid/login";
+		return "semin/login";
 	}
 
 //로그인
@@ -43,12 +43,12 @@ public class UserIdController {
 			result="로그인되었습니다";
 			session.setAttribute("login", login);
 			rttr.addFlashAttribute("success",result);
-			return "redirect:/login.magnum";
+			return "redirect:/main.magnum";
 		} else {
 			result="아이디와 비번을 확인해주세요";
 			session.setAttribute("login", null);
 			rttr.addFlashAttribute("success",result);
-			return "redirect:/main.magnum";
+			return "redirect:/login.magnum";
 		}
 		
 	}
@@ -63,7 +63,7 @@ public class UserIdController {
 //유저 회원가입
 	@RequestMapping(value = "/membership.magnum", method = RequestMethod.GET)
 	public String membership_View() {
-		return "userid/membership";
+		return "semin/membership";
 
 	}
 
@@ -84,7 +84,7 @@ public class UserIdController {
 //유저 아이디 찾기
 	@RequestMapping(value = "/id.magnum", method = RequestMethod.GET)
 	public String id_View() {
-		return "userid/id";
+		return "simple/id";
 	}
 
 	@RequestMapping(value = "/id.magnum", method = RequestMethod.POST)
@@ -103,7 +103,7 @@ public class UserIdController {
 	//유저 비밀번호 찾기
 	@RequestMapping(value = "/pw.magnum", method = RequestMethod.GET)
 	public String pw_View() {
-		return "userid/pw";
+		return "semin/pw";
 	}
 	@RequestMapping(value = "/pw.magnum", method = RequestMethod.POST)
 	public String pw(UserIdDto dto, Model model, RedirectAttributes rttr) {
@@ -125,7 +125,7 @@ public class UserIdController {
 	@RequestMapping(value = "/modification.magnum", method = RequestMethod.GET)
 	public String modi_View(UserIdDto dto, Model model) {
 		model.addAttribute("dto", service.userread(dto));
-		return "userid/modification";
+		return "semin/modification";
 	}
 	
 	@RequestMapping(value = "/modification.magnum", method = RequestMethod.POST)
@@ -143,7 +143,7 @@ public class UserIdController {
 	// 회원 탈퇴
 	@RequestMapping(value = "/withdrawal.magnum", method = RequestMethod.GET)
 	public String delete() {
-		return "userid/withdrawal";
+		return "semin/withdrawal";
 	}
 
 	@RequestMapping(value = "/withdrawal.magnum", method = RequestMethod.POST)
@@ -182,14 +182,14 @@ public class UserIdController {
 	@RequestMapping(value = "/adminlist.magnum", method = { RequestMethod.GET, RequestMethod.POST })
 	public String adminlist(UserIdDto dto, Model model) {
 		model.addAttribute("list", service.adminlist());
-		return "userid/adminlist";
+		return "semin/adminlist";
 	}
 
 	// 관리자 비번
 	@RequestMapping(value = "/adminpw.magnum", method = RequestMethod.GET)
 	public String adminpw_View(String id, Model model) {
 		model.addAttribute("id", id);
-		return "userid/adminpw";
+		return "semin/adminpw";
 	}
 	// 관리자 리스트
 
@@ -197,7 +197,7 @@ public class UserIdController {
 	@RequestMapping(value = "/adminmodification.magnum", method = RequestMethod.GET)
 	public String adminmodi_View(UserIdDto dto, Model model) {
 		model.addAttribute("dto", service.userread(dto));
-		return "userid/adminmodification";
+		return "semin/adminmodification";
 	}
 
 	@RequestMapping(value = "/adminmodification.magnum", method = RequestMethod.POST)

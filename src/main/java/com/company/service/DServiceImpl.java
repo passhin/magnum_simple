@@ -67,6 +67,11 @@ public class DServiceImpl implements DService{
 	}
 
 	@Override
+	public int updatedcnt(int dno) {
+		return dao.updatedcnt(dno);
+	}
+
+	@Override
 	public List<DateCourseDto> readCourse(DateCourseDto dto) {
 		return dao.readCourse(dto);
 	}
@@ -74,6 +79,15 @@ public class DServiceImpl implements DService{
 	@Override
 	public int deletelist(DateDto dto) {
 		return dao.deletelist(dto);
+	}
+
+	@Override
+	public List<DateCourseDto> resultlist(int mno) {
+		return dao.resultlist(mno);
+	}
+
+	@Override
+	public List<DateCourseDto> outlist(int dno) {
+		return dao.outlist(dno);
 	}	
-	
 }
