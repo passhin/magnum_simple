@@ -55,9 +55,12 @@ public class UserIdController {
 
 //로그아웃
    @RequestMapping(value = "/logout.magnum", method = RequestMethod.GET)
-   public String logout(HttpSession session) {
+   public String logout(HttpSession session,RedirectAttributes rttr) {
+	   String result="로그아웃 되었습니다.";
       session.invalidate();
+      rttr.addFlashAttribute("success",result);
       return "redirect:/login.magnum";
+      
    }
 
 //유저 회원가입
@@ -84,7 +87,7 @@ public class UserIdController {
 //유저 아이디 찾기
    @RequestMapping(value = "/id.magnum", method = RequestMethod.GET)
    public String id_View() {
-      return "simple/id";
+      return "semin/id";
    }
 
    @RequestMapping(value = "/id.magnum", method = RequestMethod.POST)
@@ -155,7 +158,7 @@ public class UserIdController {
       }
       
       rttr.addFlashAttribute("success",result);
-      return "redirect:/login.magnum";
+      return "redirect:/main.magnum";
    }
    // 회원 탈퇴
    

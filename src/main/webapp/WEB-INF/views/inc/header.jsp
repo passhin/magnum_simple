@@ -226,6 +226,25 @@ footer {
 	top:-9999%;
 	font-size:0;
 }
+  .fakeimg {
+     background-size: cover; /* 이미지가 부모 요소에 맞춰질 때 비율을 유지하면서 잘린 부분을 cover로 설정 */
+    background-position: center; /* 이미지를 부모 요소의 가운데에 위치시킴 */
+    background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
+    height: 300px; /* 원하는 높이로 설정 */
+  }
+   .fakeimg img {
+    width:100%;
+    height:100%
+    }
+    #hdtop {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* 헤더를 다른 요소들 위에 표시 */
+}
+.carousel-control {
+    opacity: 0;
+}
+
 </style>
 </head>
 <body>
