@@ -188,13 +188,52 @@ img#logoSimple {
 	background-position: center;
 	height: 1300px;
 }
+
+body {
+	margin: 0;
+	font-family: '맑은고딕', sans-serif;
+}
+
+footer {
+	border-top: 2px solid #d8d8d8;
+	background-color: #dee0dd;
+	padding: 32px;
+	height: 190px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	font-size: 12px;
+	color: #495151;
+}
+
+.footer-message {
+	font-weight: bold;
+	margin: 0 0 0 10px;
+	margin-left: 30px;
+}
+
+.footer-contact {
+	margin: 10px;
+	margin-left: 30px;
+}
+
+.footer-copyright {
+	text-align: center;
+}
+.myhidden{
+	position: absulute;
+	left:-9999%;
+	top:-9999%;
+	font-size:0;
+}
 </style>
 </head>
 <body>
 	<div id="hdtop">
 		<div class="navbar">
 			<div class="logosimple">
-				<a href="${pageContext.request.contextPath }/main.magnum" title="메인으로"><img
+				<a href="${pageContext.request.contextPath }/main.magnum"
+					title="메인으로"><img
 					src="${pageContext.request.contextPath}/resources/images/headerImg/logo.png"
 					alt="심플로고" id="logoSimple"></a>
 			</div>
@@ -207,29 +246,24 @@ img#logoSimple {
 							코스</a></li>
 				</div>
 
-
-
 				<div class="dropdown">
 					<button class="dropbtn">데이트 장소</button>
 					<div class="dropdown-content">
 						<a class="dropdown-item"
 							href="${pageContext.request.contextPath }/list.fran">데이트장소 보기</a>
 						<c:if test="${login.getId() == 'cwal15'}">
-							<a class="dropdown-item" href="DateList">데이트장소 추가</a>
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath }/DateList">데이트코스 추가</a>
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath }/inquiry">데이트장소 추가</a>
 						</c:if>
 						<a href="${pageContext.request.contextPath }/minquiry">가맹점 문의</a>
 					</div>
 				</div>
 
-
-
-
 				<div class="nondrop">
 					<li class="mini"><a class="cols-review" href="#">코스후기</a></li>
 				</div>
-
-
-
 
 				<div class="dropdown">
 					<button class="dropbtn">
@@ -237,7 +271,6 @@ img#logoSimple {
 							src="${pageContext.request.contextPath}/resources/images/headerImg/mypage.png"
 							alt="정보서랍" id="info-icon"></a>
 					</button>
-
 
 					<div class="dropdown-content">
 
@@ -268,5 +301,3 @@ img#logoSimple {
 			</ul>
 		</div>
 	</div>
-</body>
-</html>
