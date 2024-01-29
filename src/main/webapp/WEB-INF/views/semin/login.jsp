@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@include file="../inc/header.jsp"%>
+ <script>
  
+   let result = '${success}';
+   console.log(result);
+   if(result != "") {
+      alert(result);
+   }
+  
+</script>
 <div class="container">
     <div class="login-wrapper">
         <h2>SIMPLE</h2>
