@@ -251,7 +251,8 @@ footer {
 					<div class="dropdown-content">
 						<a class="dropdown-item"
 							href="${pageContext.request.contextPath }/list.fran">데이트장소 보기</a>
-						<c:if test="${login.getId() == 'cwal15'}">
+
+						<c:if test="${login.getId() == 'admin'}">
 							<a class="dropdown-item"
 								href="${pageContext.request.contextPath }/DateList">데이트코스 추가</a>
 							<a class="dropdown-item"
@@ -280,7 +281,7 @@ footer {
 								<a href="login.magnum">로그인</a>
 							</c:when>
 
-							<c:when test="${login.getId() == 'cwal15'}">
+							<c:when test="${login.getId() == 'admin'}">
 								<a class="dropdown-item" href="adminlist.magnum">사용자 목록</a>
 								<a class="dropdown-item" href="logout.magnum">로그아웃</a>
 							</c:when>
